@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+
+    <changeSet id="1" author="mashafadik@yahoo.com">
+        <sql>
+            CREATE TABLE IF NOT EXISTS `t_employee` (
+            `F_ID` BIGINT(19) NOT NULL,
+            `BIRTH_DATE` DATE NULL,
+            `CELL_PHONE` VARCHAR(45) NULL,
+            `FIRSTNAME` VARCHAR(255) NULL,
+            `LASTNAME` VARCHAR(255) NULL,
+            PRIMARY KEY (`F_ID`));
+        </sql>
+    </changeSet>
+
+    <changeSet id="2" author="mashafadik@yahoo.com">
+        <sql>
+            CREATE TABLE IF NOT EXISTS t_employee_seq (
+            next_val INT UNSIGNED PRIMARY KEY NOT NULL
+            );
+
+            INSERT INTO t_employee_seq VALUES (0);
+        </sql>
+    </changeSet>
+
+    <changeSet id="3" author="mashafadik@yahoo.com">
+        <sql>
+            CREATE TABLE IF NOT EXISTS `t_department` (
+            `F_DEPARTMENTID` BIGINT(19) UNSIGNED PRIMARY KEY NOT NULL,
+            `F_DEPARTMENTNAME` VARCHAR(255) NOT NULL
+            );
+            ALTER TABLE `t_employee` ADD `F_DEPARTMENTID` BIGINT(19) UNSIGNED NOT NULL;
+            ALTER TABLE `t_employee` ADD CONSTRAINT `FK_F_DEPARTMENTID`
+            FOREIGN KEY (`F_DEPARTMENTID`) REFERENCES `t_department`(`F_DEPARTMENTID`);
+        </sql>
+    </changeSet>
+
+    <changeSet id="4" author="mashafadik@yahoo.com">
+        <sql>
+            CREATE TABLE IF NOT EXISTS `t_project` (
+            `F_PROJECT_ID` BIGINT(19) UNSIGNED PRIMARY KEY NOT NULL,
+            `F_PROJECT_NAME` VARCHAR(255) NOT NULL
+            );
+            CREATE TABLE IF NOT EXISTS t_project_seq (
+            next_val INT UNSIGNED PRIMARY KEY NOT NULL
+            );
+            CREATE TABLE IF NOT EXISTS t_employee_project (
+            `F_EMPLOYEEID` BIGINT(19) NOT NULL,
+            `F_PROJECT_ID` BIGINT(19) UNSIGNED NOT NULL,
+            CONSTRAINT `F_EMPLOYEE_ID` FOREIGN KEY (`F_EMPLOYEEID`) REFERENCES `t_employee` (`F_ID`),
+            CONSTRAINT `F_PROJECTID` FOREIGN KEY (`F_PROJECT_ID`) REFERENCES `t_project` (`F_PROJECT_ID`)
+            );
+            INSERT INTO t_project_seq VALUES (0);
+        </sql>
+    </changeSet>
+
+
+</databaseChangeLog>
