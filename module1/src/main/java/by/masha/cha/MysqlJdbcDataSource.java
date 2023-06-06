@@ -11,14 +11,14 @@ public class MysqlJdbcDataSource {
     public static final String JDBC_PROPERTIES_FILE_NAME = "hr.jdbc.properties";
 
     private static Properties jdbcProperties;
+    
+    private final String propertyFileName;
 
     @SneakyThrows
     public MysqlJdbcDataSource(String propertyFileName) {
         this.propertyFileName = propertyFileName;
         Class.forName(getJdbcProperties(propertyFileName).getProperty("driver"));
     }
-
-    private final String propertyFileName;
 
     @SneakyThrows
     public MysqlJdbcDataSource() {
