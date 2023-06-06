@@ -69,8 +69,7 @@ public class EmployeeService {
             m.setId(Long.valueOf(ID));
             projectListUpdated.add(m);
         }
-//        Set<Project> projectSet = new HashSet<>(projectListUpdated);
-//        List<Project> projectList = new ArrayList<>(projectSet);
+
         updatedEmployee.setProjects(projectListUpdated);
         employeeDao.update(updatedEmployee);
         return employeeDao.findById(id);
