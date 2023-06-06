@@ -23,10 +23,6 @@ public class DepartmentService {
         departmentDao.create(department);
     }
 
-    public List<Department> getAll() {
-        return departmentDao.findAll();
-    }
-
     public void delete(Department department) {
         departmentDao.delete(department);
     }
